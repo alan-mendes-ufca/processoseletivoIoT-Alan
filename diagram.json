@@ -1,7 +1,128 @@
 {
   "version": 1,
-  "author": "Uri Shaked",
+  "author": "Alan",
   "editor": "wokwi",
-  "parts": [ { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} } ],
-  "connections": [ [ "esp:TX", "$serialMonitor:RX", "", [] ], [ "esp:RX", "$serialMonitor:TX", "", [] ] ]
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": -6,
+      "left": -30,
+      "attrs": {}
+    },
+    {
+      "type": "board-ssd1306",
+      "id": "oled",
+      "top": -160,
+      "left": 120,
+      "attrs": {
+        "i2cAddress": "0x3c"
+      }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "soil",
+      "top": 280,
+      "left": -4,
+      "attrs": {
+        "travelLength": "60",
+        "value": "650"
+      }
+    },
+    {
+      "type": "wokwi-servo",
+      "id": "servo",
+      "top": 170,
+      "left": 300,
+      "attrs": {
+        "horn": "single"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led-green",
+      "top": -80,
+      "left": -220,
+      "attrs": {
+        "color": "green",
+        "label": "Solo OK"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led-blue",
+      "top": -20,
+      "left": -220,
+      "attrs": {
+        "color": "blue",
+        "label": "Irrigando"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led-red",
+      "top": 40,
+      "left": -220,
+      "attrs": {
+        "color": "red",
+        "label": "Solo Seco"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r-green",
+      "top": -48,
+      "left": -134.4,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r-blue",
+      "top": 12,
+      "left": -134.4,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r-red",
+      "top": 72,
+      "left": -134.4,
+      "attrs": {
+        "value": "220"
+      }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+
+    [ "soil:SIG", "esp:34", "green", [] ],
+    [ "soil:VCC", "esp:3V3", "red", [] ],
+    [ "soil:GND", "esp:GND.1", "black", [] ],
+
+    [ "oled:SDA", "esp:21", "green", [] ],
+    [ "oled:SCL", "esp:22", "blue", [] ],
+    [ "oled:VCC", "esp:3V3", "red", [] ],
+    [ "oled:GND", "esp:GND.2", "black", [] ],
+
+    [ "servo:PWM", "esp:18", "orange", [] ],
+    [ "servo:V+", "esp:5V", "red", [] ],
+    [ "servo:GND", "esp:GND.3", "black", [] ],
+
+    [ "esp:25", "r-green:1", "green", [] ],
+    [ "r-green:2", "led-green:A", "green", [] ],
+    [ "led-green:C", "esp:GND.1", "black", [] ],
+
+    [ "esp:26", "r-blue:1", "blue", [] ],
+    [ "r-blue:2", "led-blue:A", "blue", [] ],
+    [ "led-blue:C", "esp:GND.2", "black", [] ],
+
+    [ "esp:27", "r-red:1", "red", [] ],
+    [ "r-red:2", "led-red:A", "red", [] ],
+    [ "led-red:C", "esp:GND.3", "black", [] ]
+  ]
 }
