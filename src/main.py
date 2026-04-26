@@ -15,5 +15,6 @@ print("BOOT: Irrigacao automatica iniciada")
 print("STATE: {}".format(controller.current_state))
 
 while True:
+    print("Teste")
     controller.update(ticks_ms())
     sleep_ms(50)
