@@ -1,1 +1,4 @@
 .env
+.codex
+__pycache__/
+fs.bin
